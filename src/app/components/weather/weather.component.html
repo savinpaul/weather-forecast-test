@@ -1,0 +1,23 @@
+<div class="weather-container">
+    <h1>Weather Search</h1>
+    <div class="search-box">
+      <input type="text" placeholder="Enter a city" [(ngModel)]="city">
+      <button (click)="search()">Search</button>
+    </div>
+    <div *ngIf="groupedWeatherData">
+      <h2>{{ weatherData.city.name }}</h2>
+      <div class="weather-info">
+        <div class="weather-card" *ngFor="let weatherGroup of groupedWeatherData">
+          <h3>{{ weatherGroup.date | date:'MMM d, yyyy' }}</h3>
+          <div class="weather-hour" *ngFor="let weather of weatherGroup.weatherList">
+            <p>Time:{{ weather.dt_txt | date:'HH:mm' }}  <img src="https://openweathermap.org/img/w/{{ weather.weather[0].icon }}.png" alt="Weather Icon">
+            </p>
+            <p>Temperature: {{ weather.main.temp }}°C</p>
+            <p>Windspeed: {{ weather.wind.speed }} m/s</p>
+            <p>Description: {{ weather.weather[0].description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
