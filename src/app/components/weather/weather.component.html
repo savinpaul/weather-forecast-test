@@ -1,10 +1,14 @@
 <div class="weather-container">
-    <h1>Weather Search</h1>
-    <div class="search-box">
-      <input type="text" placeholder="Enter a city" [(ngModel)]="city">
-      <button (click)="search()">Search</button>
+    <h1>Weather Forecast</h1>
+    <div class="button-container">
+      <button *ngFor="let location of locations"
+              [ngClass]="{'selected': selectedLocation === location}"
+              class="selectable-button"
+              (click)="selectLocation(location)">
+        {{ location }}
+      </button>
     </div>
-    <div *ngIf="groupedWeatherData">
+    <div *ngIf="groupedWeatherData.length>0">
       <h2>{{ weatherData.city.name }}</h2>
       <div class="weather-info">
         <div class="weather-card" *ngFor="let weatherGroup of groupedWeatherData">

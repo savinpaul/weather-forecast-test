@@ -7,14 +7,15 @@ import { WeatherService } from 'src/app/services/weather.service';
   styleUrls: ['./weather.component.scss'],
 })
 export class WeatherComponent {
-  city!: string;
+  selectedLocation!: string;
   weatherData: any;
   groupedWeatherData: any[] = [];
+  locations: string[] = ['Birmingham', 'London', 'Cardiff'];
 
   constructor(private weatherService: WeatherService) {}
 
-  search() {
-    this.weatherService.getWeather(this.city).subscribe(
+  getWeatherInfo() {
+    this.weatherService.getWeather(this.selectedLocation).subscribe(
       (data: any) => {
         this.weatherData = data;
         this.groupWeatherData();
@@ -24,7 +25,15 @@ export class WeatherComponent {
       }
     );
   }
-
+  selectLocation(location: string) {
+    if (this.selectedLocation === location) {
+      this.selectedLocation = '';
+      this.groupedWeatherData = [];
+    } else {
+      this.selectedLocation = location;
+      this.getWeatherInfo();
+    }
+  }
   groupWeatherData() {
     this.groupedWeatherData = [];
     const groupedData: { [key: string]: any[] } = {};
